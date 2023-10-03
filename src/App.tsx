@@ -1,24 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Data from "./components/Data";
+import Simulation from "./components/Simulation";
 
 function App() {
+  const [customerInterval, setCustomerInterval] = useState<number>(0);
+  const [orderTaker, setOrderTaker] = useState<number>(0);
+  const [orderTakerTime, setOrderTakerTime] = useState<number>(0);
+  const [kitchen, setKitchen] = useState<number>(0);
+  const [kitchenTime, setKitchenTime] = useState<number>(0);
+  const [start, setStart] = useState<boolean>(false);
+
+  const obj = {
+    customerInterval,
+    setCustomerInterval,
+    orderTaker,
+    setOrderTaker,
+    orderTakerTime,
+    setOrderTakerTime,
+    kitchen,
+    setKitchen,
+    kitchenTime,
+    setKitchenTime,
+    start,
+    setStart
+  };
+
+  const obj1 = {
+    customerInterval,
+    orderTaker,
+    orderTakerTime,
+    kitchen,
+    kitchenTime,
+    start,
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Data {...obj} />
+      <Simulation {...obj1} />
     </div>
   );
 }
