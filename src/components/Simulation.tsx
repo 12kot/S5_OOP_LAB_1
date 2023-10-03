@@ -32,20 +32,32 @@ const Simulation = ({
   const { customers, orders, done } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
+  let i = 0;
+  let j = 0;
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (start) {
         dispatch(addCustomers({ id: Math.floor(Math.random() * 10000 + 10) }));
 
-        setTimeout(() => {
-          dispatch(addOrders({ count: orderTaker }));
-          dispatch(removeCustomers({ count: orderTaker }));
-
+        if (i < orderTaker) {
+          console.log(i)
+          i++;
           setTimeout(() => {
-            dispatch(addDone({ count: kitchen }));
-            dispatch(removeOrders({ count: kitchen }));
-          }, kitchenTime * 1000);
-        }, orderTakerTime * 1000);
+            dispatch(addOrders({ count: 1 }));
+            dispatch(removeCustomers({ count: 1 }));
+            i--;
+            
+            if (j < kitchen) {
+              j++;
+              setTimeout(() => {
+                dispatch(addDone({ count: 1 }));
+                dispatch(removeOrders({ count: 1 }));
+                j--;
+              }, kitchenTime * 1000);
+            }
+          }, orderTakerTime * 1000);
+        }
       }
     }, customerInterval * 1000);
 
